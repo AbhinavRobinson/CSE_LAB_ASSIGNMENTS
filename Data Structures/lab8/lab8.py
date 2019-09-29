@@ -81,6 +81,10 @@ class doublylinkedlist:
 
     # Set Prev Node Link to New Node
     def setPrevNode(self, Node):
+        # If Node is somewhere inside list after head
+        if Node.prev != None: self.prev = Node.prev
+        # If Node is actually head
+        else: self.prev = None
         Node.prev = self
         self.next = Node
         # Data Set
@@ -136,7 +140,86 @@ class doublylinkedlist:
         # Printing Complete ... End Function
 
 # END OF DOUBLY LINKED LIST CLASS
-        
+
+# TEXT EDITIOR CLASS
+class texteditor(): 
+
+    # Initialize
+    def __init__(self):
+        self.head = None
+        self.ptr = None
+
+    # Insert Char
+    def insertChar(self, data, ptr = None):
+        # Check for char length
+        if len(data) == 1:
+            if ptr == None : ptr = self.head
+            newNode = Node(data)
+            # Initialise
+            if ptr == None:
+                self.head = newNode
+            else:
+                # Append
+                while ptr.next != None:
+                    ptr = ptr.next  
+                ptr.next = newNode
+                newNode.prev = ptr
+        else:
+            print("ERROR : ENTER A CHARACHTER")
+            exit(0)
+
+    # Delete Char
+    def deleteChar(self, data):
+        ptr = self.head
+        if ptr == None:
+            pass
+        else:
+            while ptr:
+                if ptr.data == data:
+                    ptr.prev.next = ptr.next  
+                    ptr = None
+                    break
+                ptr = ptr.next
+
+    # Print String
+    def printString(self):
+        ptr = self.head
+        sen = ""
+        # traverse...
+        while ptr != None:
+            sen += ptr.data
+            ptr = ptr.next
+        print(sen)
+
+    # GO RIGHT
+    def right(self, ptr):
+        # IF NONE, RETURN FIRST NODE
+        if ptr == None:
+            ptr = self.head
+            return ptr
+        # IF AT END
+        elif ptr.next == None:
+            return ptr
+        else:
+            # ELSE RETURN NEXT NODE
+            return ptr.next
+
+    #GO LEFT
+    def left(self, ptr):
+        # IF NONE, RETURN LAST NODE
+        if ptr == None:
+            ptr = self.head
+            while ptr.next != None:
+                ptr = ptr.next  
+            return ptr
+        # IF AT START
+        elif ptr.prev == None:
+            return ptr
+        else:
+            # ELSE RETURN PREV NODE
+            return ptr.prev
+
+# END OF TEXT EDITOR CLASS
 
 # Main Class // Driver Class
 if __name__ == '__main__':
@@ -160,4 +243,26 @@ if __name__ == '__main__':
     # lets print according to required format
     print("Printing in Full Format...")
     Llist.fullPrint()
+
+    # QUESTION TWO
+    print("---------QUESTION 2--------")
+    slist = texteditor()
+    slist.insertChar("a")
+    slist.insertChar("b")
+    slist.insertChar("h")
+    slist.insertChar("i")
+    slist.insertChar("n")
+    slist.insertChar("a")
+    slist.insertChar("v") 
+    slist.printString()
+    slist.deleteChar("v")
+    slist.printString()
+    ptr = slist.left(None)
+    ptr = slist.left(ptr)
+    print(ptr.data)
+    ptr = slist.right(ptr)
+    print(ptr.data)
+
+    # QUESTION THREE
+    # TODO
 # END OF MAIN/DRIVER METHOD
