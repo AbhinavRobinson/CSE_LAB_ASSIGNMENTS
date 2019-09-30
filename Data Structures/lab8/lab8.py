@@ -12,6 +12,10 @@ class Node:
 # End of Node Class
     
 
+
+
+
+
 # Doubly Linked List Class
 class doublylinkedlist:
 
@@ -141,6 +145,11 @@ class doublylinkedlist:
 
 # END OF DOUBLY LINKED LIST CLASS
 
+
+
+
+
+
 # TEXT EDITIOR CLASS
 class texteditor(): 
 
@@ -220,9 +229,150 @@ class texteditor():
             return ptr.prev
 
 # END OF TEXT EDITOR CLASS
+    
+
+
+
+
+
+# QUESTION THREE
+class polynomial:
+
+    # INITIALISE POLYNOMIAL
+    def __init__(self):
+        self.head = None
+
+    # ADD VARIABLE TO LIST
+    def addVariable(self,constant,power):
+        data = [constant, power]
+        ptr = self.head
+        if ptr == None:
+            # if no elements in list
+            self.head = Node(data)
+        elif ptr.data[1] == data[1]:
+            ptr.data = [ptr.data[0]+data[0],ptr.data[1]]
+        elif ptr.data[1] < data[1]:
+            # if we need to insert element at start of list
+            newNode = Node(ptr.data)
+            ptr.data = data
+            newNode.next = ptr.next   
+            ptr.next = newNode
+            newNode.prev = ptr
+            if newNode.next != None: newNode.next.prev = newNode
+        else:
+            # otherwise we find the correct position for element
+            newNode = Node(data)
+            # Traversal (emulation on a do-while loop)
+            while True:
+                flag = False   
+                # until Null reached
+                if ptr.next == None: break
+                # If power is same 
+                if ptr.next.data[1] == data[1]:                 
+                    flag = True
+                    break   
+                # while data value > next block's data value
+                if ptr.next.data[1] <= data[1]: break
+                # traverse...
+                ptr = ptr.next
+            # If Differrent Power
+            if not flag:
+                # position found, insert node
+                newNode.next = ptr.next
+                # so we do not get Null Pointer Exception for accessing "Null.prev"
+                if ptr.next != None: ptr.next.prev = newNode
+                ptr.next = newNode
+                newNode.prev = ptr
+            # IF same power
+            else:
+                ptr.next.data[0] += data[0] 
+    # END OF ADDTION OF VARIABLE TO LIST
+
+    # DELETE A VARIABLE
+    def deleteVariable(self, constant, power):
+        data = [constant, power]
+        ptr = self.head
+        if ptr == None:
+            pass
+        else:
+            while ptr:
+                if ptr.data == data:
+                    ptr.prev.next = ptr.next  
+                    ptr = None
+                    break
+                ptr = ptr.next
+        # Deletion done ... end function
+    # END OF DELETION OF VARIABLE
+
+    # PRINT POLYNOMIAL
+    def printPolynomial(self):
+        ptr = self.head
+        if ptr.next != None: print("<head> -> ",end="")
+        else: print("Empty List")
+        while(ptr):
+            if ptr.next == None:  
+                if ptr.data[1] == 0:
+                    print(ptr.data[0],end="")
+                else:
+                    print(ptr.data[0],'x^',ptr.data[1],end="")
+            else: 
+                if ptr.data[1] == 0:
+                    print(ptr.data[0]," + ",sep="",end="")
+                else:
+                    print(ptr.data[0],'x^',ptr.data[1]," + ",sep="",end="")
+            ptr = ptr.next
+        print()
+        # Printing done ... end function
+
+    #  Multiply TWO POLYNOMIALS
+    def multiply(self, y):
+        a,b = self.hasMoreCoff(y)
+        A = a.head
+        Z = polynomial()
+        while A:
+            # FIRST VARIABLE OF X
+            x_coff = A.data[0]
+            x_pow = A.data[1]
+            B = b.head
+            while B:
+                # FIRST VARIABLE OF Y
+                y_coff = B.data[0]
+                y_pow = B.data[1]
+                # MULTIPLY
+                z_coff = x_coff*y_coff
+                z_pow = x_pow+y_pow
+                # ADD TO POLYNOMIAL
+                Z.addVariable(z_coff,z_pow)
+                B = B.next  
+            A = A.next
+        return Z   
+    # END OF MULTIPLY
+
+    # HELPER FUNCTIONS
+    # COUNT
+    def countCoff(self):
+        ptr = self.head
+        count = 0
+        while ptr:
+            count+=1
+            ptr = ptr.next
+        return count
+    # FIND LARGER LIST
+    def hasMoreCoff(self,Y):
+        if self.countCoff()>Y.countCoff():
+            return self,Y
+        return Y,self
+  
+# END OF POLYNOMIAL CLASS
+
+
+
+
+
 
 # Main Class // Driver Class
 if __name__ == '__main__':
+    # QUESTION ONE
     # Create a empty list
     print("Initializing list...")
     Llist = doublylinkedlist()
@@ -264,5 +414,23 @@ if __name__ == '__main__':
     print(ptr.data)
 
     # QUESTION THREE
-    # TODO
+    print("---------QUESTION 3--------")
+    # GIVEN TEST CASE
+    print("-------GIVEN TEST CASE-------")
+    A = polynomial()
+    B = polynomial()
+    A.addVariable(3,2)
+    A.addVariable(5,1)
+    A.addVariable(6,0)
+    B.addVariable(6,1)
+    B.addVariable(8,0)
+    print("A = ",end="")
+    A.printPolynomial()
+    print("B = ",end="")
+    B.printPolynomial()
+    C = A.multiply(B)
+    print("A * B = C")
+    print("C = ",end="")
+    C.printPolynomial()
+
 # END OF MAIN/DRIVER METHOD
