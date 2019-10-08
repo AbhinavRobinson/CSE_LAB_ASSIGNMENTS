@@ -1,0 +1,28 @@
+Initializing list...
+Inserting elements into list...
+<head>1<->2<->3<->4<->5
+Deleting 3 from list...
+<head>1<->2<->4<->5
+Printing in Full Format...
+_________________________________________________
+  PrevAddr  | Value |  CurrAddr   |    NextAddr
+
+    NULL     ---1---0x1b0d5179908---0x1b0d51799e8
+0x1b0d5179908---2---0x1b0d51799e8---0x1b0d51798d0
+0x1b0d5179978---4---0x1b0d51798d0---0x1b0d51799b0
+0x1b0d51798d0---5---0x1b0d51799b0---     NULL
+
+-------------------END OF LIST-------------------
+_________________________________________________
+
+---------QUESTION 2--------
+abhinav
+abhina
+n
+a
+---------QUESTION 3--------
+-------GIVEN TEST CASE-------
+A = <head> -> 3x^2 + 5x^1 + 6
+B = <head> -> 6x^1 + 8
+A * B = C
+C = <head> -> 18x^3 + 54x^2 + 76x^1 + 48

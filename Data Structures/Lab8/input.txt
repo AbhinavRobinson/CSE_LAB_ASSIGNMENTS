@@ -1,0 +1,60 @@
+# QUESTION ONE
+    # Create a empty list
+    print("Initializing list...")
+    Llist = doublylinkedlist()
+    # Add elements to list
+    print("Inserting elements into list...")
+    Llist.appendNode(3)
+    Llist.appendNode(4)
+    Llist.appendNode(1)
+    Llist.appendNode(5)
+    Llist.appendNode(2)
+    # print list
+    Llist.printList()
+    # now lets delete 3
+    print("Deleting 3 from list...")
+    Llist.deleteNode(3)
+    # print list
+    Llist.printList()
+    # lets print according to required format
+    print("Printing in Full Format...")
+    Llist.fullPrint()
+
+    # QUESTION TWO
+    print("---------QUESTION 2--------")
+    slist = texteditor()
+    slist.insertChar("a")
+    slist.insertChar("b")
+    slist.insertChar("h")
+    slist.insertChar("i")
+    slist.insertChar("n")
+    slist.insertChar("a")
+    slist.insertChar("v") 
+    slist.printString()
+    slist.deleteChar("v")
+    slist.printString()
+    ptr = slist.left(None)
+    ptr = slist.left(ptr)
+    print(ptr.data)
+    ptr = slist.right(ptr)
+    print(ptr.data)
+
+    # QUESTION THREE
+    print("---------QUESTION 3--------")
+    # GIVEN TEST CASE
+    print("-------GIVEN TEST CASE-------")
+    A = polynomial()
+    B = polynomial()
+    A.addVariable(3,2)
+    A.addVariable(5,1)
+    A.addVariable(6,0)
+    B.addVariable(6,1)
+    B.addVariable(8,0)
+    print("A = ",end="")
+    A.printPolynomial()
+    print("B = ",end="")
+    B.printPolynomial()
+    C = A.multiply(B)
+    print("A * B = C")
+    print("C = ",end="")
+    C.printPolynomial()
